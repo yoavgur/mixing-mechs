@@ -1,0 +1,18 @@
+torch
+networkx
+sae_lens
+matplotlib
+pandas
+numpy
+pyvene
+pytest
+scikit-learn
+ipywidgets
+jupyterlab
+ipycytoscape
+seaborn
+<<<<<<< Updated upstream
+transformers
+=======
+# sae_lens
+>>>>>>> Stashed changes
