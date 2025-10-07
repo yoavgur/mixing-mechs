@@ -14,6 +14,8 @@ The codebase is still being finalized, but for now I uploaded the main files use
 - `plotting.py` - code for generating our main figure.
 - `example.ipynb` - an example script that should just work out of the box, running our main interchange intervention and plotting the results.
 
+---
+
 ### Citation
 Please cite as:
 TODO
@@ -26,6 +28,7 @@ TODO
 }
 ``` -->
 
+---
 
 Please check out our [interactive blog post](https://yoav.ml/blog/2025/mixing-mechs/) to explore how the different binding mechanisms affect model behavior!
 
