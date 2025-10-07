@@ -8,7 +8,7 @@ This repository contains the official code of the paper: "Mixing Mechanisms: How
 Please check out our [interactive blog post](https://yoav.ml/blog/2025/mixing-mechs/) to explore how the different binding mechanisms affect model behavior!
 
 <p align="center">
-![main_gif](https://github.com/user-attachments/assets/4c028f8f-c83c-43c1-aa85-f1a0aef92333)
+<img width="864" height="830" alt="mechs_fig1" src="https://github.com/user-attachments/assets/4c028f8f-c83c-43c1-aa85-f1a0aef92333" />
 </p>
 
 ### Files
