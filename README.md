@@ -5,12 +5,6 @@ This repository contains the official code of the paper: "Mixing Mechanisms: How
   <img width="864" height="830" alt="mechs_fig1" src="https://github.com/user-attachments/assets/e3ac9cdf-add7-4f02-96d0-f2b75e359651" />
 </p>
 
-Please check out our [interactive blog post](https://yoav.ml/blog/2025/mixing-mechs/) to explore how the different binding mechanisms affect model behavior!
-
-<p align="center">
-<img width="800" height="905" alt="mechs_fig1" src="https://github.com/user-attachments/assets/4c028f8f-c83c-43c1-aa85-f1a0aef92333" />
-</p>
-
 ### Files
 The codebase is still being finalized, but for now I uploaded the main files used in the paper. These are:
 - `CausalAbstraction/` - this is a copy of the official [CausalAbstraction](https://github.com/atticusg/CausalAbstraction) codebase, with very minor quality of life tweaks that I should open a PR for. For now, for the sake of reproducibility, I just put my version of the code here.
@@ -31,5 +25,13 @@ TODO
   year = {2021},
 }
 ``` -->
+
+
+Please check out our [interactive blog post](https://yoav.ml/blog/2025/mixing-mechs/) to explore how the different binding mechanisms affect model behavior!
+
+<p align="center">
+<img width="800" height="905" alt="mechs_fig1" src="https://github.com/user-attachments/assets/4c028f8f-c83c-43c1-aa85-f1a0aef92333" />
+</p>
+
 
 Feel free to contact if you have any thoughts, questions or suggestions.
