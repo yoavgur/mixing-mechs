@@ -1,5 +1,5 @@
 # Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context
-This repository contains the official code of the paper: "Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context" ([link](https://arxiv.org/abs/2510.06182).
+This repository contains the official code of the paper: "Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context" ([link](https://arxiv.org/abs/2510.06182)).
 
 <p align="center">
   <img width="864" height="830" alt="mechs_fig1" src="https://github.com/user-attachments/assets/e3ac9cdf-add7-4f02-96d0-f2b75e359651" />
