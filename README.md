@@ -1,5 +1,5 @@
 # Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context
-This repository contains the official code of the paper: "Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context" (TODO add link).
+This repository contains the official code of the paper: "Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context" ([link](https://arxiv.org/abs/2510.06182).
 
 <p align="center">
   <img width="864" height="830" alt="mechs_fig1" src="https://github.com/user-attachments/assets/e3ac9cdf-add7-4f02-96d0-f2b75e359651" />
@@ -18,15 +18,16 @@ The codebase is still being finalized, but for now I uploaded the main files use
 
 ### Citation
 Please cite as:
-TODO
-<!-- ```
-@article{geva2021strategyqa,
-  title = {{Did Aristotle Use a Laptop? A Question Answering Benchmark with Implicit Reasoning Strategies}},
-  author = {Geva, Mor and Khashabi, Daniel and Segal, Elad and Khot, Tushar and Roth, Dan and Berant, Jonathan},
-  journal = {Transactions of the Association for Computational Linguistics (TACL)},
-  year = {2021},
+```
+@misc{gurarieh2025mixing,
+    title={Mixing Mechanisms: How Language Models Retrieve Bound Entities In-Context},
+    author={Yoav Gur-Arieh and Mor Geva and Atticus Geiger},
+    year={2025},
+    eprint={2510.06182},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
 }
-``` -->
+```
 
 ---
 
