@@ -595,49 +595,6 @@ SCHEMA_FILLING_LIQUIDS = Schema(
     ],
 )
 
-SCHEMA_NUMBERED_CONTAINERS = Schema(
-    name="numbered_containers",
-    items={
-        "Person": PEOPLE_NAMES,
-        "Container": CONTAINERS,
-        "Number": [str(x) for x in list(range(1, 10))],
-    },
-    templates=Templates(
-        prefix="{Person_list} are working at a busy restaurant. To complete an order, ",
-        definitions={
-            "row_default": "{Person} brought {Container} number {Number}",
-            "ordering_012": "{Person} brought {Container} number {Number}",
-        },
-        queries={
-            "Q:Container_Person A:Number": Query(
-                question="Respond in one word, only the answer and nothing else: Which number {Container} did {Person} bring?",
-                answer_category="Number",
-            ),
-            "Q:Person A:Container": Query(question="Which container did {Person} bring?", answer_category="Container"),
-            "Q:Number_Person A:Container": Query(
-                question="Respond in one word, only the answer and nothing else: Which container did {Person} bring with number {Number}?",
-                answer_category="Container",
-            ),
-            "Q:Container_Number A:Person": Query(
-                question="Respond in one word, only the answer and nothing else: Which person brought {Container} number {Number}?",
-                answer_category="Person",
-            ),
-            "default": Query(
-                question="Respond in one word, only the answer and nothing else: Which number {Container} did {Person} bring?",
-                answer_category="Number",
-            ),
-        },
-        capitalize_first_clause=False,
-    ),
-    max_new_tokens=2,
-    checker=lambda neural, causal: causal.lower().strip() in neural.lower().strip(),
-    matchers=[
-        None,
-        lambda s: re.match(f"^ ?({'|'.join(CONTAINERS)})$", s) is not None,
-        None,
-    ],
-)
-
 SCHEMA_PEOPLE_AND_OBJECTS = Schema(
     name="people_and_objects",
     items={"Person": PEOPLE_NAMES, "Object": HOUSEHOLD_ITEMS, "Location": HOUSEHOLD_LOCATIONS},
@@ -679,48 +636,6 @@ SCHEMA_PEOPLE_AND_OBJECTS = Schema(
     ],
 )
 
-SCHEMA_COLORED_SHAPES = Schema(
-    name="colored_shapes",
-    items={
-        "Shape": ["square", "circle", "triangle", "star", "diamond", "rectangle", "oval"],
-        "Color": ["green", "red", "blue", "yellow", "purple", "orange", "pink"],
-        "Position": ["north", "south", "east", "west", "center", "northeast", "northwest", "southeast", "southwest"],
-    },
-    templates=Templates(
-        prefix="On a treasure map, ",
-        definitions={
-            "row_default": "the {Color} {Shape} is located in the {Position}",
-            "row_reversed": "the {Shape} is located in the {Position} and its color is {Color}",
-            "col_default": "The landmarks are the {Shape_list}. Their respective colors and positions are {Color_list} and {Position_list}.",
-        },
-        queries={
-            "default": Query(
-                question="Respond in one word, only the answer and nothing else: What is the position of the {Color} {Shape}?",
-                answer_category="Position",
-            ),
-            "Q:Color_Shape A:Position": Query(
-                question="Respond in one word, only the answer and nothing else: What is the position of the {Color} {Shape}?",
-                answer_category="Position",
-            ),
-            "Q:Shape A:Color": Query(
-                question="Respond in one word, only the answer and nothing else: What is the color of the {Shape}?",
-                answer_category="Color",
-            ),
-            "Q:Position_Shape A:Color": Query(
-                question="Respond in one word, only the answer and nothing else: What is the color of the {Shape} that is located in the {Position}?",
-                answer_category="Color",
-            ),
-            "Q:Color_Position A:Shape": Query(
-                question="Respond in one word, only the answer and nothing else: What is the {Color} shape that is located in the {Position}?",
-                answer_category="Shape",
-            ),
-        },
-        capitalize_first_clause=True,
-    ),
-    max_new_tokens=3,
-    checker=lambda _neural, _causal: _causal.lower().strip() in _neural.lower().strip(),
-)
-
 SCHEMA_PROGRAMMING_PEOPLE_DICT = Schema(
     name="programming_people_dict",
     items={"VariableName": LETTERS, "Name": PEOPLE_NAMES, "Country": COUNTRIES},
@@ -758,51 +673,6 @@ SCHEMA_PROGRAMMING_PEOPLE_DICT = Schema(
         lambda s: re.match(f"^ ?({'|'.join(LETTERS)})$", s) is not None,
         lambda s: re.match(f"^ ?({'|'.join(PEOPLE_NAMES)})$", s) is not None,
         lambda s: re.match(f"^ ?({'|'.join(COUNTRIES)})$", s) is not None,
-    ],
-)
-
-SCHEMA_GEOMETRY = Schema(
-    name="geometry",
-    items={
-        "Point": [x.upper() for x in LETTERS if x != "d"],
-        "x": [str(x) for x in range(11)],
-        "y": [str(x) for x in range(11)],
-    },
-    templates=Templates(
-        definitions={
-            "row_default": "{Point} is at ({x}, {y})",
-            "row_reversed": "({x}, {y}) is {Point}",
-            "col_default": "the points are {Point_list}. Their respective x-coordinates are {x_list}, and their respective y-coordinates are {y_list}.",
-            "ordering_012": "{Point} is at ({x}, {y})",
-        },
-        queries={
-            "default": Query(
-                question="Respond in one word, only the answer and nothing else: What is the y-coordinate of {Point} with x-coordinate {x}?",
-                answer_category="y",
-            ),
-            "Q:Point_x A:y": Query(
-                question="Respond in one word, only the answer and nothing else: What is the y-coordinate of {Point} with x-coordinate {x}?",
-                answer_category="y",
-            ),
-            "Q:Point A:x": Query(
-                question="Respond in one word, only the answer and nothing else: What is the x-coordinate of {Point}?",
-                answer_category="x",
-            ),
-            "Q:Point_y A:x": Query(
-                question="Respond in one word, only the answer and nothing else: What is the x-coordinate of {Point} with y-coordinate {y}?",
-                answer_category="x",
-            ),
-            "Q:x_y A:Point": Query(
-                question="Respond in one word, only the answer and nothing else: Which poinst has x-coordinatte {x} and y-coordinate {y}?",
-                answer_category="Point",
-            ),
-        },
-        prefix="The following are the coordinates of points in a 2D plane: ",
-    ),
-    max_new_tokens=3,
-    checker=lambda _neural, _causal: _causal.lower().strip() in _neural.lower().strip(),
-    matchers=[
-        lambda s: re.match(f"^ ?({'|'.join([x.upper() for x in LETTERS if x != 'd'])})$", s) is not None,
     ],
 )
 
@@ -846,42 +716,6 @@ SCHEMA_MUSIC_PERFORMANCE = Schema(
         lambda s: re.match(f"^ ?({'|'.join(MUSIC_GENRES)})$", s) is not None,
         lambda s: re.match(f"^ ?({'|'.join(MUSIC_INSTRUMENTS)})$", s) is not None,
     ],
-)
-
-SCHEMA_ANIMAL_MOVEMENTS = Schema(
-    name="animal_movements",
-    items={
-        "Animal": ["dog", "cat", "rabbit", "bird", "fish", "frog", "lizard", "butterfly", "snake", "mouse"],
-        "Movement": ["ran", "jumped", "crawled", "flew", "swam", "hopped", "walked", "slithered", "dove", "glided"],
-        "Environment": ["forest", "river", "desert", "mountain", "garden", "pond", "cave", "beach", "jungle", "field"],
-    },
-    templates=Templates(
-        prefix="In a biology field study, the researchers observed that ",
-        definitions={
-            "row_default": "the {Animal} {Movement} in the {Environment}",
-        },
-        queries={
-            "Q:Animal_Movement A:Environment": Query(
-                question="Respond in one word, only the answer and nothing else: Where does the {Animal} {Movement}?",
-                answer_category="Environment",
-            ),
-            "Q:Animal A:Movement": Query(
-                question="Respond in one word, only the answer and nothing else: What did {Animal} do?",
-                answer_category="Movement",
-            ),
-            "Q:Animal_Environment A:Movement": Query(
-                question="Respond in one word, only the answer and nothing else: What did {Animal} do in the {Environment}?",
-                answer_category="Movement",
-            ),
-            "Q:Environment_Movement A:Animal": Query(
-                question="Respond in one word, only the answer and nothing else: which animal {Movement} in the {Environment}?",
-                answer_category="Animal",
-            ),
-        },
-        capitalize_first_clause=False,
-    ),
-    max_new_tokens=3,
-    checker=lambda neural, causal: causal.lower().strip() in neural.lower().strip(),  # Do the lemma thing
 )
 
 SCHEMA_LAB_EXPERIMENTS = Schema(
@@ -1094,137 +928,6 @@ SCHEMA_SPACE_OBSERVATIONS = Schema(
     checker=lambda neural, causal: causal.lower().strip().split()[-1] in neural.lower().strip(),
 )
 
-SCHEMA_FUNCTION_PARAMETERS = Schema(
-    name="function_parameters",
-    items={
-        "FunctionName": [
-            "calculate",
-            "process",
-            "validate",
-            "transform",
-            "analyze",
-            "generate",
-            "compute",
-            "filter",
-            "sort",
-            "merge",
-        ],
-        "ParameterType": ["string", "integer", "float", "boolean", "array", "object", "date", "file", "url", "json"],
-        "ReturnType": ["string", "integer", "float", "boolean", "array", "object", "date", "file", "url", "json"],
-    },
-    templates=Templates(
-        prefix="In a software development project, ",
-        definitions={
-            "row_default": "function {FunctionName} takes a {ParameterType} parameter and returns a {ReturnType}",
-        },
-        queries={
-            "default": Query(
-                question="Respond in one word, only the answer and nothing else: What type does function {FunctionName} return when given a {ParameterType} parameter?",
-                answer_category="ReturnType",
-            ),
-        },
-        capitalize_first_clause=False,
-    ),
-    max_new_tokens=3,
-    checker=lambda neural, causal: causal.lower().strip() in neural.lower().strip(),
-)
-
-SCHEMA_DATABASE_RELATIONS = Schema(
-    name="database_relations",
-    items={
-        "TableName": [
-            "users",
-            "orders",
-            "products",
-            "customers",
-            "employees",
-            "inventory",
-            "payments",
-            "categories",
-            "reviews",
-            "shipping",
-        ],
-        "ColumnName": ["id", "name", "email", "price", "date", "status", "quantity", "address", "phone", "description"],
-        "DataType": [
-            "varchar",
-            "integer",
-            "decimal",
-            "datetime",
-            "boolean",
-            "text",
-            "float",
-            "date",
-            "timestamp",
-            "json",
-        ],
-    },
-    templates=Templates(
-        prefix="In a database schema design, ",
-        definitions={
-            "row_default": "table {TableName} has column {ColumnName} with data type {DataType}",
-        },
-        queries={
-            "Q:TableName_ColumnName A:DataType": Query(
-                question="Respond in one word, only the answer and nothing else: In table {TableName}, what data type is the {ColumnName} column?",
-                answer_category="DataType",
-            ),
-            "Q:TableName A:ColumnName": Query(
-                question="Respond in one word, only the answer and nothing else: In table {TableName}, what is the data type of the {ColumnName} column?",
-                answer_category="ColumnName",
-            ),
-        },
-        capitalize_first_clause=False,
-    ),
-    max_new_tokens=3,
-    checker=lambda neural, causal: causal.lower().strip() in neural.lower().strip(),
-)
-
-SCHEMA_MEDICAL_DIAGNOSIS = Schema(
-    name="medical_diagnosis",
-    items={
-        "Patient": PEOPLE_NAMES,
-        "Symptom": [
-            "fever",
-            "headache",
-            "cough",
-            "fatigue",
-            "nausea",
-            "dizziness",
-            "rash",
-            "pain",
-            "swelling",
-            "weakness",
-        ],
-        "Diagnosis": [
-            "flu",
-            "migraine",
-            "allergy",
-            "infection",
-            "injury",
-            "anxiety",
-            "dehydration",
-            "stress",
-            "inflammation",
-            "tension",
-        ],
-    },
-    templates=Templates(
-        prefix="During a medical consultation, ",
-        definitions={
-            "row_default": "{Patient} presented with {Symptom} and was diagnosed with {Diagnosis}",
-        },
-        queries={
-            "default": Query(
-                question="Respond in one word, only the answer and nothing else: What was {Patient} diagnosed with when showing {Symptom}?",
-                answer_category="Diagnosis",
-            ),
-        },
-        capitalize_first_clause=False,
-    ),
-    max_new_tokens=3,
-    checker=lambda neural, causal: causal.lower().strip() in neural.lower().strip(),
-)
-
 SCHEMA_BOXES = Schema(
     name="boxes",
     items={"Object": HOUSEHOLD_ITEMS, "Box": [x.upper() for x in LETTERS]},
@@ -1263,16 +966,13 @@ if __name__ == "__main__":
         SCHEMA_FILLING_LIQUIDS,
         SCHEMA_MUSIC_PERFORMANCE,
         SCHEMA_PEOPLE_AND_OBJECTS,
-        SCHEMA_NUMBERED_CONTAINERS,
-        SCHEMA_COLORED_SHAPES,
         SCHEMA_PROGRAMMING_PEOPLE_DICT,
-        SCHEMA_GEOMETRY,
-        SCHEMA_ANIMAL_MOVEMENTS,
         SCHEMA_LAB_EXPERIMENTS,
         SCHEMA_CHEMISTRY_EXPERIMENTS,
         SCHEMA_TRANSPORTATION,
         SCHEMA_SPORTS_EVENTS,
         SCHEMA_SPACE_OBSERVATIONS,
+        SCHEMA_BOXES,
     ]
 
     rows = []
